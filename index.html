@@ -13,7 +13,9 @@
   </style>
   <body>
     <ul id="factorial"></ul>
+    <!--- <ul id="repetidas"></ul> -->
     <ul id="list"></ul>
+
     <footer>
       Feito por: Bernardo R. de Geus <br />
       codigo disponivel em: https://github.com/Berdegeus/anagram-genarator
@@ -25,14 +27,19 @@
     const input = window.prompt(
       'digite sua palavra \n (O limite de processamento do navegador é 7 letras)'
     );
-    const letra = 'a';
     const contagem = input.length;
-    const escreverfatorial = calcularFatorial(
-      'a palavra inserida possui ' + fatorial + '! combinações'
-    );
+    const repetidas = duplicateCharCount(input);
     const fatorial = calcularFatorial(contagem);
-    const duplicate = duplicateCount(input, letra);
+    const escreverfatorial = calcularFatorial(
+      'a palavra inserida possui ' +
+        contagem +
+        '! = ' +
+        fatorial +
+        ' combinações' +
+        ''
+    );
 
+    // document.getElementById('repetidas').innerHTML = repetidas;
     document.getElementById('factorial').innerHTML = escreverfatorial;
 
     const permutator = (str) => {
@@ -77,18 +84,6 @@
 
     console.log(makeid(contagem));
 
-    function duplicateCount(frase, letra) {
-      var resultado = 0;
-
-      for (const letraAtual of frase) {
-        if (letraAtual === letra) {
-          resultado++;
-        }
-      }
-
-      return resultado;
-    }
-
     function calcularFatorial(fatorial) {
       if (fatorial === 0 || fatorial === 1) {
         return 1;
@@ -99,8 +94,23 @@
       for (var i = primeiroMultipicador; i > 1; i--) {
         resultado *= i;
       }
-
       return resultado;
     }
+
+    function duplicateCharCount(str) {
+      if (str) {
+        var obj = {};
+        for (let i = 0; i < str.length; i++) {
+          if (obj[str[i]]) {
+            obj[str[i]] += obj[str[i]];
+          } else {
+            obj[str[i]] = 1;
+          }
+        }
+        console.log(obj);
+      }
+    }
+
+    console.log(repetidas);
   </script>
 </html>
