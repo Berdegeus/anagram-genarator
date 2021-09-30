@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2A o melhor</title>
+  </head>
+  <style>
+    ul {
+      font-size: 50px;
+    }
+  </style>
+  <body>
+    <ul id="factorial"></ul>
+    <ul id="list"></ul>
+    <footer>
+      Feito por: Bernardo R. de Geus <br />
+      codigo disponivel em: <br />
+      ultima atualização:29/09/2021
+    </footer>
+  </body>
+  <script type="text/javascript">
+    const input = window.prompt(
+      'digite sua palavra \n (O limite de processamento do navegador é 7 letras)'
+    );
+    const letra = 'a';
+    const contagem = input.length;
+    const escreverfatorial = calcularFatorial(
+      'a palavra inserida possui ' + contagem + '! combinações'
+    );
+    const fatorial = calcularFatorial(contagem);
+    const duplicate = duplicateCount(input, letra);
+
+    document.getElementById('factorial').innerHTML = escreverfatorial;
+
+    const permutator = (str) => {
+      const input = Array.from(str);
+      let result = [];
+
+      const permute = (arr, m = []) => {
+        if (arr.length === 0) {
+          result.push(m);
+        } else {
+          for (let i = 0; i < arr.length; i++) {
+            let current = arr.slice();
+            let next = current.splice(i, 1);
+            permute(current.slice(), m.concat(next));
+          }
+        }
+      };
+      permute(input);
+      return result;
+    };
+
+    const permuteresult = permutator(input);
+    const listItems = document.getElementById('list');
+    permuteresult.forEach((result) => {
+      listItems.innerHTML += `<li>${result}</li>`;
+    });
+
+    function makeid(length) {
+      for (let i = 0; i <= fatorial; i++) {
+        var list = [];
+        var result = '';
+        var characters = input;
+        var charactersLength = characters.length;
+        for (let i = 0; i < length; i++) {
+          result += characters.charAt(
+            Math.floor(Math.random() * charactersLength)
+          );
+        }
+      }
+      return list;
+    }
+
+    console.log(makeid(contagem));
+
+    function duplicateCount(frase, letra) {
+      var resultado = 0;
+
+      for (const letraAtual of frase) {
+        if (letraAtual === letra) {
+          resultado++;
+        }
+      }
+
+      return resultado;
+    }
+
+    function calcularFatorial(fatorial) {
+      if (fatorial === 0 || fatorial === 1) {
+        return 1;
+      }
+
+      var resultado = fatorial;
+      var primeiroMultipicador = fatorial - 1;
+      for (var i = primeiroMultipicador; i > 1; i--) {
+        resultado *= i;
+      }
+
+      return resultado;
+    }
+  </script>
+</html>
